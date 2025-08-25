@@ -26,7 +26,12 @@ An **educational web app** built with **HTML, CSS, and JavaScript** that helps l
 2. Navigate through tabs: **Lessons, Practice, Quizzes, Notes, Progress, Favorites**.  
 3. Try answering questions, saving lessons, and checking your progress.  
 4. Download PDF notes for offline learning.  
+## 💖 Support This Project
+If you find this project useful, you can support me:
 
+- [Donate via PayPal](https://www.paypal.me/YourPayPalLink)
+- [Pay with M-Pesa](https://checkout.flutterwave.com/pay/xxxx)
+- 
 ---
 
 ## 📂 Project Structure  
