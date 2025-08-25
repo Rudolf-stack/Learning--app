@@ -3,63 +3,83 @@ function toggleDarkMode() {
   document.body.classList.toggle("dark-mode");
 }
 
-// 📝 Quiz Data
-const quizData = [
-  {
-    question: "What is 2 + 2?",
-    options: ["3", "4", "5"],
-    answer: "4"
-  },
-  {
-    question: "Which planet is known as the Red Planet?",
-    options: ["Earth", "Mars", "Venus"],
-    answer: "Mars"
-  },
-  {
-    question: "What is the capital of Kenya?",
-    options: ["Nairobi", "Mombasa", "Kisumu"],
-    answer: "Nairobi"
-  }
-];
+// 📝 Quiz System
+const quizData = {
+  math: [
+    {
+      question: "What is 5 + 7?",
+      options: ["10", "11", "12", "13"],
+      answer: "12"
+    },
+    {
+      question: "Solve: 9 × 3",
+      options: ["18", "27", "30", "21"],
+      answer: "27"
+    }
+  ],
+  english: [
+    {
+      question: "Choose the correct sentence:",
+      options: ["She go to school", "She goes to school", "She going to school"],
+      answer: "She goes to school"
+    },
+    {
+      question: "What is the plural of 'Child'?",
+      options: ["Childs", "Childes", "Children", "Childer"],
+      answer: "Children"
+    }
+  ]
+};
 
-// 🧑‍🎓 Start Quiz
+let currentQuiz = [];
+let currentQuestion = 0;
+let score = 0;
+
+// Start Quiz
 function startQuiz() {
-  let quizContainer = document.getElementById("quiz");
-  quizContainer.innerHTML = ""; // Clear old quiz
+  const subject = prompt("Choose a subject: Math or English").toLowerCase();
+  if (subject === "math") {
+    currentQuiz = quizData.math;
+  } else if (subject === "english") {
+    currentQuiz = quizData.english;
+  } else {
+    alert("Invalid choice! Please type 'Math' or 'English'.");
+    return;
+  }
 
-  quizData.forEach((q, index) => {
-    let questionHTML = `
-      <div class="question">
-        <p><b>Q${index + 1}: ${q.question}</b></p>
-        ${q.options.map(opt => `
-          <label>
-            <input type="radio" name="q${index}" value="${opt}">
-            ${opt}
-          </label><br>
-        `).join("")}
-      </div>
-    `;
-    quizContainer.innerHTML += questionHTML;
-  });
-
-  // Add Submit Button
-  quizContainer.innerHTML += `
-    <button onclick="submitQuiz()">Submit Quiz</button>
-    <div id="result"></div>
-  `;
+  currentQuestion = 0;
+  score = 0;
+  loadQuestion();
 }
 
-// ✅ Submit Quiz
-function submitQuiz() {
-  let score = 0;
-  quizData.forEach((q, index) => {
-    let selected = document.querySelector(`input[name="q${index}"]:checked`);
-    if (selected && selected.value === q.answer) {
-      score++;
-    }
-  });
+// Load Question
+function loadQuestion() {
+  const quizContainer = document.getElementById("quiz");
+  if (currentQuestion < currentQuiz.length) {
+    const q = currentQuiz[currentQuestion];
+    quizContainer.innerHTML = `
+      <h3>${q.question}</h3>
+      ${q.options.map((opt, i) => 
+        `<button onclick="checkAnswer('${opt}')">${opt}</button>`
+      ).join("<br>")}
+    `;
+  } else {
+    quizContainer.innerHTML = `
+      <h3>✅ Quiz Finished!</h3>
+      <p>Your Score: ${score}/${currentQuiz.length}</p>
+      <button onclick="startQuiz()">Restart Quiz</button>
+    `;
+  }
+}
 
-  let resultDiv = document.getElementById("result");
-  resultDiv.innerHTML = `<h3>You scored ${score} / ${quizData.length} 🎉</h3>`;
-    }
-                   
+// Check Answer
+function checkAnswer(answer) {
+  if (answer === currentQuiz[currentQuestion].answer) {
+    score++;
+    alert("🎉 Correct!");
+  } else {
+    alert("❌ Wrong! The correct answer is: " + currentQuiz[currentQuestion].answer);
+  }
+  currentQuestion++;
+  loadQuestion();
+}
