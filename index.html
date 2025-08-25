@@ -2,304 +2,70 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>📚 Smart Learning Hub</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0; padding: 0;
-      background: #f4f7fa;
-      color: #333;
-      transition: background 0.3s, color 0.3s;
-    }
-    header {
-      background: #4a90e2;
-      color: white;
-      padding: 15px;
-      text-align: center;
-      font-size: 22px;
-      font-weight: bold;
-    }
-    nav {
-      display: flex;
-      justify-content: space-around;
-      background: #fff;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-      flex-wrap: wrap;
-    }
-    nav button {
-      background: none;
-      border: none;
-      padding: 15px;
-      cursor: pointer;
-      font-size: 16px;
-    }
-    nav button:hover {
-      background: #e6f0ff;
-    }
-    section {
-      padding: 20px;
-      display: none;
-    }
-    section.active {
-      display: block;
-    }
-    .card {
-      background: white;
-      margin: 10px 0;
-      padding: 15px;
-      border-radius: 8px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    }
-    iframe {
-      width: 100%;
-      height: 400px;
-      border: none;
-      margin-top: 10px;
-    }
-    .quiz-question {
-      margin-bottom: 15px;
-    }
-    .progress-bar {
-      background: #ddd;
-      border-radius: 20px;
-      overflow: hidden;
-      height: 20px;
-      margin: 10px 0;
-    }
-    .progress {
-      background: #4a90e2;
-      height: 100%;
-      width: 0;
-      transition: width 0.3s;
-    }
-    .donate, .ads {
-      text-align: center;
-      margin: 20px 0;
-      padding: 15px;
-      border: 2px dashed #aaa;
-      border-radius: 8px;
-      background: #fafafa;
-    }
-    .btn {
-      background: #4a90e2;
-      color: white;
-      border: none;
-      padding: 10px 15px;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-    .btn:hover {
-      background: #357abd;
-    }
-    /* Dark mode */
-    body.dark {
-      background: #121212;
-      color: #eee;
-    }
-    body.dark header {
-      background: #222;
-    }
-    body.dark .card {
-      background: #1e1e1e;
-      color: #eee;
-    }
-    .top-controls {
-      display: flex;
-      justify-content: space-between;
-      padding: 10px;
-    }
-    .top-controls input {
-      padding: 5px;
-      flex: 1;
-      margin-right: 10px;
-    }
-  </style>
+  <title>📚 Smart Learning App</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header>📚 Smart Learning Hub</header>
+  <!-- Header -->
+  <header>
+    <h1>📚 Smart Learning Hub</h1>
+    <p>Learn, Practice & Download Notes 🚀</p>
+  </header>
 
-  <div class="top-controls">
-    <input type="text" id="searchBox" placeholder="🔍 Search lessons..." onkeyup="searchLessons()">
-    <button class="btn" onclick="toggleDarkMode()">🌙</button>
-  </div>
-
+  <!-- Navigation -->
   <nav>
-    <button onclick="showSection('lessons')">Lessons</button>
-    <button onclick="showSection('practice')">Practice</button>
-    <button onclick="showSection('quizzes')">Quizzes</button>
-    <button onclick="showSection('notes')">Notes</button>
-    <button onclick="showSection('progress')">Progress</button>
-    <button onclick="showSection('favorites')">⭐ Favorites</button>
+    <a href="#home">Home</a>
+    <a href="#lessons">Lessons</a>
+    <a href="#practice">Practice</a>
+    <a href="#pdfs">PDF Notes</a>
+    <a href="#about">About</a>
   </nav>
 
-  <!-- Lessons -->
-  <section id="lessons" class="active">
-    <div class="card lesson">
-      <h3>Mathematics Basics</h3>
-      <p>Learn addition, subtraction, multiplication, and division.</p>
-      <button class="btn" onclick="saveLesson('Mathematics Basics')">Save to Favorites</button>
-    </div>
-    <div class="card lesson">
-      <h3>Science Basics</h3>
-      <p>Explore plants, animals, and the solar system.</p>
-      <button class="btn" onclick="saveLesson('Science Basics')">Save to Favorites</button>
-    </div>
-    <div class="card lesson">
-      <h3>English Basics</h3>
-      <p>Grammar, comprehension, and sentence building.</p>
-      <button class="btn" onclick="saveLesson('English Basics')">Save to Favorites</button>
-    </div>
+  <!-- Hero Section -->
+  <section id="home" class="hero">
+    <h2>Welcome to Smart Learning Hub</h2>
+    <p>Learn new skills, grow your knowledge, and achieve your goals 🌍</p>
+    <button onclick="toggleDarkMode()">🌙 Toggle Dark Mode</button>
   </section>
 
-  <!-- Practice -->
+  <!-- Lessons Section -->
+  <section id="lessons">
+    <h2>📖 Lessons</h2>
+    <ul>
+      <li>Mathematics Basics</li>
+      <li>English Grammar</li>
+      <li>Science Fundamentals</li>
+    </ul>
+  </section>
+
+  <!-- Practice Section -->
   <section id="practice">
-    <div class="card">
-      <h3>Practice Question</h3>
-      <p>Solve: 12 + 8</p>
-      <input type="number" id="practiceAnswer">
-      <button class="btn" onclick="checkPractice()">Check</button>
-      <p id="practiceResult"></p>
-    </div>
+    <h2>📝 Practice</h2>
+    <button onclick="startQuiz()">Start Quiz</button>
+    <div id="quiz"></div>
   </section>
 
-  <!-- Quizzes -->
-  <section id="quizzes">
-    <div class="card">
-      <div class="quiz-question">
-        <strong>1. What is 5 × 3?</strong><br>
-        <input type="radio" name="q1" value="10">10<br>
-        <input type="radio" name="q1" value="15">15<br>
-        <input type="radio" name="q1" value="20">20
-      </div>
-      <div class="quiz-question">
-        <strong>2. Earth is a:</strong><br>
-        <input type="radio" name="q2" value="Star">Star<br>
-        <input type="radio" name="q2" value="Planet">Planet<br>
-        <input type="radio" name="q2" value="Comet">Comet
-      </div>
-      <button class="btn" onclick="submitQuiz()">Submit Quiz</button>
-      <p id="quizResult"></p>
-    </div>
+  <!-- PDFs Section -->
+  <section id="pdfs">
+    <h2>📂 Download Notes</h2>
+    <ul>
+      <li><a href="notes/math.pdf" target="_blank">Math Notes (PDF)</a></li>
+      <li><a href="notes/english.pdf" target="_blank">English Notes (PDF)</a></li>
+    </ul>
   </section>
 
-  <!-- Notes -->
-  <section id="notes">
-    <div class="card">
-      <h3>Math Notes</h3>
-      <iframe src="https://mozilla.github.io/pdf.js/web/compressed.tracemonkey-pldi-09.pdf"></iframe>
-      <a href="https://mozilla.github.io/pdf.js/web/compressed.tracemonkey-pldi-09.pdf" target="_blank">🔗 Open</a> |
-      <a href="https://mozilla.github.io/pdf.js/web/compressed.tracemonkey-pldi-09.pdf" download>⬇ Download</a>
-    </div>
-    <div class="card">
-      <h3>Science Notes</h3>
-      <iframe src="https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"></iframe>
-      <a href="https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf" target="_blank">🔗 Open</a> |
-      <a href="https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf" download>⬇ Download</a>
-    </div>
-    <div class="card">
-      <h3>English Notes</h3>
-      <iframe src="https://gahp.net/wp-content/uploads/2017/09/sample.pdf"></iframe>
-      <a href="https://gahp.net/wp-content/uploads/2017/09/sample.pdf" target="_blank">🔗 Open</a> |
-      <a href="https://gahp.net/wp-content/uploads/2017/09/sample.pdf" download>⬇ Download</a>
-    </div>
+  <!-- About Section -->
+  <section id="about">
+    <h2>ℹ️ About</h2>
+    <p>This app is designed to help learners with lessons, practice quizzes, and downloadable study materials. Made with ❤️ for students worldwide.</p>
   </section>
 
-  <!-- Progress -->
-  <section id="progress">
-    <div class="card">
-      <h3>Your Learning Progress</h3>
-      <div class="progress-bar">
-        <div id="progressFill" class="progress"></div>
-      </div>
-      <p id="progressText">0% completed</p>
-    </div>
-  </section>
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 Smart Learning Hub | Open Source Project</p>
+  </footer>
 
-  <!-- Favorites -->
-  <section id="favorites">
-    <div class="card">
-      <h3>⭐ Saved Lessons</h3>
-      <ul id="favList"></ul>
-    </div>
-  </section>
-
-  <!-- Donation + Ads -->
-  <div class="donate">
-    💖 Support this project:  
-    <button class="btn" onclick="alert('Link to M-Pesa or PayPal here')">Donate</button>
-  </div>
-  <div class="ads">
-    📢 Your Ad Here (Google AdSense script goes in this box)
-  </div>
-
-  <script>
-    // Show/Hide sections
-    function showSection(id) {
-      document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
-      document.getElementById(id).classList.add('active');
-    }
-
-    // Dark mode
-    function toggleDarkMode() {
-      document.body.classList.toggle("dark");
-    }
-
-    // Search lessons
-    function searchLessons() {
-      let q = document.getElementById("searchBox").value.toLowerCase();
-      document.querySelectorAll(".lesson").forEach(l => {
-        l.style.display = l.innerText.toLowerCase().includes(q) ? "block" : "none";
-      });
-    }
-
-    // Favorites
-    function saveLesson(title) {
-      let favs = JSON.parse(localStorage.getItem("favorites")) || [];
-      if (!favs.includes(title)) favs.push(title);
-      localStorage.setItem("favorites", JSON.stringify(favs));
-      loadFavorites();
-    }
-    function loadFavorites() {
-      let favs = JSON.parse(localStorage.getItem("favorites")) || [];
-      let list = document.getElementById("favList");
-      list.innerHTML = "";
-      favs.forEach(f => {
-        let li = document.createElement("li");
-        li.textContent = f;
-        list.appendChild(li);
-      });
-    }
-    loadFavorites();
-
-    // Practice
-    function checkPractice() {
-      const ans = document.getElementById('practiceAnswer').value;
-      const result = document.getElementById('practiceResult');
-      if (ans == 20) {
-        result.textContent = "✅ Correct!";
-        updateProgress(20);
-      } else {
-        result.textContent = "❌ Try again.";
-      }
-    }
-
-    // Quiz
-    function submitQuiz() {
-      let score = 0;
-      if (document.querySelector('input[name="q1"]:checked')?.value === "15") score++;
-      if (document.querySelector('input[name="q2"]:checked')?.value === "Planet") score++;
-      document.getElementById('quizResult').textContent = "You scored " + score + "/2";
-      updateProgress(score * 30);
-    }
-
-    // Progress
-    let progress = 0;
-    function updateProgress(add) {
-      progress = Math.min(100, progress + add);
-      document.getElementById('progressFill').style.width = progress + "%";
-      document.getElementById('progressText').textContent = progress + "% completed";
-    }
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
